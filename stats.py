@@ -36,6 +36,10 @@ class Display:
         self.display.set_backlight(0)
 
     @property
+    def device_name(self):
+        return 'ST7735'
+
+    @property
     def width(self):
         return self.display.width
 
