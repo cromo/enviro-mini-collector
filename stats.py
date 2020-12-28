@@ -9,6 +9,7 @@ import time
 
 from display import Display
 from proximity_light_detector import ProximityLightDetector
+from temperature_pressure_humidity_sensor import TemperaturePressureHumiditySensor
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s',
@@ -28,10 +29,12 @@ display.canvas.text(((WIDTH - size_x) / 2, (HEIGHT / 2) - (size_y / 2)), message
 display.show_buffer()
 
 light_sensor = ProximityLightDetector()
+weather_sensor = TemperaturePressureHumiditySensor()
 
 try:
     while True:
-        logging.info('Proximity (raw): {:>4}, lux: {}'.format(light_sensor.raw_proximity, light_sensor.lux))
+        # logging.info('Proximity (raw): {:>4}, lux: {}'.format(light_sensor.raw_proximity, light_sensor.lux))
+        logging.info('temp: {}C, humidity: {}%, pressure: {}hPa'.format(weather_sensor.raw_temperature, weather_sensor.humidity, weather_sensor.pressure))
         time.sleep(1)
 except KeyboardInterrupt:
     display.turn_off()
