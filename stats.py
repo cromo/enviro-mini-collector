@@ -5,8 +5,10 @@
 from PIL import ImageFont
 from fonts.ttf import RobotoMedium
 import logging
+import time
 
 from display import Display
+from proximity_light_detector import ProximityLightDetector
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s',
@@ -25,8 +27,11 @@ display.canvas.rectangle((0, 0, WIDTH, HEIGHT), (20, 15, 0))
 display.canvas.text(((WIDTH - size_x) / 2, (HEIGHT / 2) - (size_y / 2)), message, font=font, fill=(255, 255, 255))
 display.show_buffer()
 
+light_sensor = ProximityLightDetector()
+
 try:
     while True:
-        pass
+        logging.info('Proximity (raw): {:>4}, lux: {}'.format(light_sensor.raw_proximity, light_sensor.lux))
+        time.sleep(1)
 except KeyboardInterrupt:
     display.turn_off()
