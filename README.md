@@ -1,2 +1,2 @@
 # enviro-mini-collector
-Code to gather data using an enviro mini on a Raspberry Pi
+Code to gather data using an [enviro mini pHAT](https://shop.pimoroni.com/products/enviro?variant=31155658489939) on a Raspberry Pi. Wraps the [enviroplus-python](https://github.com/pimoroni/enviroplus-python) library for ease of use and will eventually ship the data to another server via HTTP.
