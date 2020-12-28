@@ -11,30 +11,29 @@ from display import Display
 from proximity_light_detector import ProximityLightDetector
 from temperature_pressure_humidity_sensor import TemperaturePressureHumiditySensor
 
+from enviro import Enviro
+
 logging.basicConfig(
     format='%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s',
     level=logging.INFO,
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-display = Display()
-WIDTH, HEIGHT = display.width, display.height
+# display = Display()
+enviro = Enviro()
+WIDTH, HEIGHT = enviro.display.width, enviro.display.height
 
 message = 'Wapo!'
 font = ImageFont.truetype(font=RobotoMedium, size=25)
-size_x, size_y = display.canvas.textsize(message, font)
+size_x, size_y = enviro.display.canvas.textsize(message, font)
 
-display.canvas.rectangle((0, 0, WIDTH, HEIGHT), (20, 15, 0))
-display.canvas.text(((WIDTH - size_x) / 2, (HEIGHT / 2) - (size_y / 2)), message, font=font, fill=(255, 255, 255))
-display.show_buffer()
-
-light_sensor = ProximityLightDetector()
-weather_sensor = TemperaturePressureHumiditySensor()
+enviro.display.canvas.rectangle((0, 0, WIDTH, HEIGHT), (20, 15, 0))
+enviro.display.canvas.text(((WIDTH - size_x) / 2, (HEIGHT / 2) - (size_y / 2)), message, font=font, fill=(255, 255, 255))
+enviro.display.show_buffer()
 
 try:
     while True:
-        # logging.info('Proximity (raw): {:>4}, lux: {}'.format(light_sensor.raw_proximity, light_sensor.lux))
-        logging.info('temp: {}C, humidity: {}%, pressure: {}hPa'.format(weather_sensor.raw_temperature, weather_sensor.humidity, weather_sensor.pressure))
+        logging.info('prox: {:.0f}, lux: {}, temp: {:.1f}C, humidity: {:.0f}%, pressure: {:.0f}hPa'.format(enviro.proximity, enviro.lux, enviro.raw_temperature, enviro.humidity, enviro.pressure))
         time.sleep(1)
 except KeyboardInterrupt:
-    display.turn_off()
+    enviro.display.turn_off()
