@@ -25,6 +25,10 @@ class Enviro:
         return self.weather_sensor.raw_temperature
 
     @property
+    def temperature(self):
+        return self.weather_sensor.temperature
+
+    @property
     def humidity(self):
         return self.weather_sensor.humidity
 
