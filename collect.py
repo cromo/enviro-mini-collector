@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import logging, socket, time
+import argparse, logging, socket, time
 import requests
 from enviro import Enviro
 
@@ -53,4 +53,8 @@ def sampler(host, sensor, unit, read_sample):
     return sample
 
 if __name__ == '__main__':
-    main('http://amber:3000', 5)
+    parser = argparse.ArgumentParser(description='Collects data from an enviro pHAT')
+    parser.add_argument('--server', required=True, help='The server to post results to, including protocol and port')
+    parser.add_argument('--sample-period', type=float, default=60, help='The time between sample reads in seconds')
+    args = parser.parse_args()
+    main(args.server, args.sample_period)
