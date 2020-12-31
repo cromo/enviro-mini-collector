@@ -1,0 +1,11 @@
+[Unit]
+Description=Collect and ship environmental measurements via the Enviro pHAT
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/enviro-mini-collector/collect.py --server http://hub:3000 --sample-period 60
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
